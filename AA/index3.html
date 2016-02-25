@@ -1,0 +1,118 @@
+        function makeContent(cont) {
+            var contentHolder = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>';
+
+            for (var i = 0; i < cont.meetingGroups.length; i++) {
+                contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
+                contentHolder = contentHolder + cont.meetingGroups[i].meetingGroup.meetingName + '</h1>';
+                if (cont.meetingGroups[i].meetingGroup.meetingHouse.length > 0) {
+                    contentHolder = contentHolder + '<p>' + cont.meetingGroups[i].meetingGroup.meetingHouse + '<br>';
+                }
+                contentHolder = contentHolder + cont.meetingGroups[i].meetingGroup.address.substr(0, cont.meetingGroups[i].meetingGroup.address.indexOf(',')) + '<br>';
+                contentHolder = contentHolder + cont.meetingGroups[i].meetingGroup.address + '</p>';
+                
+                
+        var days;
+        if (cont.meetingGroups[i].meetings.meetingDays[i] == 1) {
+            days = "Mondays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] == 2) {
+            days = "Tuesdays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] == 3 ) {
+            days = "Wednesdays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] == 4) {
+            days =  "Thursdays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] == 5) {
+            days = "Fridays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] ==  6) {
+            days = "Saturdays";
+        }
+        else if (cont.meetingGroups[i].meetings.meetingDays[i] == 0) {
+            days = "Sundays";
+        }
+                
+                
+                
+                contentHolder = contentHolder + '<p><b>' + days +' meetings: </b><br>';
+                for (var j = 0; j < cont.meetingGroups[i].meetings.startTimes.length; j++) {
+                    var mt, si;
+                    if (cont.meetingGroups[i].meetings.meetingTypes[j] == "BB") {
+                        mt = "Big Book ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "B ") {
+                        mt = "Beginners ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "C ") {
+                        mt = "Closed Discussion ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "S ") {
+                        mt = "Step ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "T ") {
+                        mt = "Tradition ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "O ") {
+                        mt = "Open Meeting ";
+                    }
+                    else if (cont.meetingGroups[i].meetings.meetingTypes[j] == "OD") {
+                        mt = "Open Discussion ";
+                    }
+                    else {
+                        mt = "";
+                    }
+
+                    if (cont.meetingGroups[i].meetings.specialInterest[j] != null) {
+                        si = ",  " + cont.meetingGroups[i].meetings.specialInterest[j];
+                    }
+                    else {
+                        si = '';
+                    }
+                    contentHolder = contentHolder + cont.meetingGroups[i].meetings.startTimes[j] + ' ' + mt + si + '<br>';
+                }
+                contentHolder = contentHolder + '</p>';
+                contentHolder = contentHolder + '<div class="iw-bottom-gradient"></div>';
+            }
+            return contentHolder;
+        }
+
+        function setMarkers(map, locations) {
+            // Add markers to the map
+            var infowindow = new google.maps.InfoWindow({
+                maxWidth: 450
+            });
+
+            for (var i = 0; i < locations.length; i++) {
+                var meeting = locations[i];
+
+                var myLatLng = new google.maps.LatLng(meeting._id.latLong.lat, meeting._id.latLong.lng);
+
+                var contentWindow = makeContent(meetings[i]);
+
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: "Click for meeting info",
+                    content: contentWindow,
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(this.content);
+                    infowindow.open(map, this);
+                });
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+    <div id="map-canvas"></div>
+</body>
+
+</html>
