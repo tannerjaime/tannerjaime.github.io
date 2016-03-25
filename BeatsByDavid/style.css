@@ -1,0 +1,19 @@
+.myButton {
+	background-color:#435c7a;
+	border:1px solid #241d13;
+	display:inline-block;
+	cursor:pointer;
+	color:#fffde5;
+	font-family:Verdana;
+	font-size:17px;
+	padding:4% 50%;
+	text-decoration:none;
+	text-align: center;
+}
+.myButton:hover {
+	background-color:#7693b3;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
