@@ -1,0 +1,47 @@
+body {
+	padding-top: 50px;
+	background: #E7EAED;
+}
+.starter-template {
+	padding: 40px 10px;
+	text-align: center;
+}
+
+.navbar, .navbar-inverse, .navbar-fixed-top{
+	height: 15%;
+	/*display: inline;*/
+	float: left;
+	left: -10%;
+	background: #1C3C57;
+}
+
+.collapsenavbar-collapse {
+	float: left;
+
+}
+.collapsenavbar-collapse img {
+	width: 13%;
+	height: auto;
+	float: left;
+
+}
+
+.nav, .navbar-nav {
+	float:right;
+	padding-top: 2%;
+	background-color: none;
+	border: 1px solid none;
+	border: none !important;
+	outline: none !important;
+	font-size: 18px;
+}
+
+.container .starter-template{
+	padding-top: 6%;
+}
+
+.trans {
+	background: #E7EAED;
+	height: 500px;
+	width: 500px
+}
