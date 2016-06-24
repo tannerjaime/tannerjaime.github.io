@@ -12,7 +12,7 @@ var counter = 0;
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight * 2);
+  createCanvas(windowWidth, windowHeight);
   background(86);
   textSize(25);
   fill(130);
