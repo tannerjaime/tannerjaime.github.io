@@ -20,6 +20,9 @@ var magnitude; // div for storing min magnitude from slider
 var details;
 var bla;
 var checker = false;
+var quakeDay = [];
+var quakeMonth = [];
+var date = [];
 var quakeMinute = [];
 var quakeHour = [];
 var quakeSecond = [];
@@ -43,33 +46,33 @@ function setup() {
   details.parent("mapp");
   details.position(width * 0.1, windowHeight * 0.78);
 
-  var timeText = createP("TIME OF EARTHQUAKE");
+  var timeText = createP("DATE OF EARTHQUAKE");
   timeText.parent("mapp");
   $(".there").html(timeText);
   timeText.class("text");
   timeText.style("font-size", "15px");
   timeText.position(width * 0.14, windowHeight * 0.85);
 
-  var depthText = createP("KILOMETERS DEEP");
+  var depthText = createP("TIME OF EARTHQUAKE");
   depthText.parent("mapp");
   $(".there").html(depthText);
   depthText.class("text");
   depthText.style("font-size", "15px");
-  depthText.position(width * 0.37, windowHeight * 0.85);
+  depthText.position(width * 0.34, windowHeight * 0.85);
 
-  var magText = createP("MAGNITUDE");
+  var magText = createP("KILOMETERS DEEP");
   magText.parent("mapp");
   magText.class("text");
   $(".there").html(magText);
   magText.style("font-size", "15px");
   magText.position(width * 0.56, windowHeight * 0.85);
 
-  var locText = createP("LONGITUDINAL POSITION");
+  var locText = createP("MAGNITUDE");
   locText.parent("mapp");
   locText.class("text");
   $(".there").html(locText);
   locText.style("font-size", "15px");
-  locText.position(width * 0.7, windowHeight * 0.85);
+  locText.position(width * 0.75, windowHeight * 0.85);
 
   var locText = createP("SIGNIFICANT EARTHQUAKES OF LAST 30 DAYS");
   locText.parent("mapp");
@@ -103,6 +106,8 @@ function parseSource(data) {
     depth[i] = row[3];
     timeStamp[i] = row[0];
 
+    quakeMonth[i] = new Date(timeStamp[i]).getMonth();
+    quakeDay[i] = new Date(timeStamp[i]).getDay();
     quakeMinute[i] = new Date(timeStamp[i]).getMinutes();
     quakeHour[i] = new Date(timeStamp[i]).getHours();
     quakeSecond[i] = new Date(timeStamp[i]).getSeconds();
@@ -112,6 +117,7 @@ function parseSource(data) {
     if (quakeSecond[i] < 10) {
       quakeSecond[i] = ("0" + quakeMinute[i]);
     }
+    date[i] = quakeMonth[i] + "/" + quakeDay[i];
     allTime[i] = (quakeHour[i] + ":" + quakeMinute[i] + ":" + quakeSecond[i]);
     // mappedMag = map(mags[i], 0, 10, height * 0.82, height * 0.85);
     // create custom leaflet marker
@@ -128,6 +134,7 @@ function parseSource(data) {
       loc2: loc2[i],
       magn: mags[i],
       depth: depth[i],
+      date: date[i],
       tim: allTime[i],
       opacity: 0.9,
       fillOpacity: 0.4,
@@ -137,12 +144,18 @@ function parseSource(data) {
     var place = row[13].substr(1);
     // make new labeled markers at lat, lon, 
     quakes[i].on('mouseover', function(e) {
-      var string = "<p class='therep'> " + e.target.options.tim + "</p>";
-      $(".there").html(string);
+      var string = "<p class='therep'> " + e.target.options.date + "</p>";
+      var string2 = "<p class='there2'> " + e.target.options.tim + "</p>";
+      var string3 = "<p class='there3'> " + e.target.options.depth + "</p>";
+      var string4 = "<p class='there4'> " + e.target.options.magn + "</p>";
+
+      $(".there").html(string + string2 + string3 + string4);
+      // $(".there").html(string2);
       // + "\t\t\t" + e.target.options.depth +"\t\t\t" + e.target.options.magn + "        " + e.target.options.loc1 + "\t\t\t" +
       // var dstring = "<p class='thered'> " + e.target.options.depth + "</p>";
       // $(".there").html(dstring);
       // string.style("font-size", "30px");
+      console.log(string);
     }).on('mouseout', function(e) {}).addTo(mapp).setRadius(19);
 
 

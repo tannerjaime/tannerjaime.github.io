@@ -80,16 +80,61 @@ body {
 
 .therep {
   /*position: relative;*/
+  display: inline-block;
   color: #64FDCF;
   margin-top: 100px !important;
   margin-bottom: 100px !important;
-  margin-right: 90% !important;
+  margin-right: 8% !important;
+  margin-left: 5% !important;
+  font-family: 'Orbitron';
+  font-size: 40px !important;
+  top: 234px;
+  width: 15%;
+}
+
+.there2 {
+  /*position: relative;*/
+  display: inline-block;
+  color: #64FDCF;
+  margin-top: 100px !important;
+  margin-bottom: 100px !important;
+  margin-right: 8% !important;
+  margin-left: 2% !important;
+  font-family: 'Orbitron';
+  font-size: 40px !important;
+  top: 234px;
+  width: 17%;
+}
+
+.there3 {
+  /*position: relative;*/
+  display: inline-block;
+  color: #64FDCF;
+  margin-top: 100px !important;
+  margin-bottom: 100px !important;
+  margin-right: 7% !important;
   margin-left: 3% !important;
   font-family: 'Orbitron';
-  font-size: 50px !important;
+  font-size: 40px !important;
   top: 234px;
-  width: 90%;
+  width: 13%;
 }
+
+.there4 {
+  /*position: relative;*/
+  display: inline-block;
+  color: #64FDCF;
+  margin-top: 100px !important;
+  margin-bottom: 100px !important;
+  margin-right: 8% !important;
+  margin-left: 3% !important;
+  font-family: 'Orbitron';
+  font-size: 40px !important;
+  top: 234px;
+  width: 10%;
+}
+
+
 /*.thered {*/
 /*  position: relative;*/
 /*  color: #64FDCF;*/
