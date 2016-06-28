@@ -14,10 +14,10 @@ var counter = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(86);
-  textSize(25);
-  fill(130);
+  textSize(35);
+  fill(140);
   textFont('rockwell');
-  text("'Sabbath' by Oliver Sacks", windowWidth / 2 - textWidth("SABBATH, by Oliver Sacks") / 2, 40);
+  text("'Sabbath' by Oliver Sacks", windowWidth / 2 - textWidth("SABBATH, by Oliver Sacks") / 2, 60);
   // filter(BLUR,1);
   loadJSON("sackScore.json", displaySent);
   // filter(BLUR,3);
