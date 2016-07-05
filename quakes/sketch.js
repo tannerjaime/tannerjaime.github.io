@@ -13,7 +13,7 @@ var mags = [];
 var depth = []; // array of magnitudes
 var allDepth = [];
 var allMags = [];
-var timeStamp = [];
+// var timeStamp = [];
 var timeStampAll = [];
 var slider; // UI for setting minimum magnitude
 var magnitude; // div for storing min magnitude from slider 
@@ -104,19 +104,20 @@ function parseSource(data) {
     var row = split(data[i], ","); // split every row by the comma
     mags[i] = row[4];
     depth[i] = row[3];
-    timeStamp[i] = row[0];
+    var timeStamp = row[0];
 
-    quakeMonth[i] = new Date(timeStamp[i]).getMonth();
-    quakeDay[i] = new Date(timeStamp[i]).getDay();
-    quakeMinute[i] = new Date(timeStamp[i]).getMinutes();
-    quakeHour[i] = new Date(timeStamp[i]).getHours();
-    quakeSecond[i] = new Date(timeStamp[i]).getSeconds();
-    if (quakeMinute[i] < 10) {
-      quakeMinute[i] = ("0" + quakeMinute[i]);
-    }
-    if (quakeSecond[i] < 10) {
-      quakeSecond[i] = ("0" + quakeMinute[i]);
-    }
+    quakeMonth[i] =timeStamp.substring(5, 7);
+    quakeDay[i] = timeStamp.substring(8, 10);
+    quakeMinute[i] = timeStamp.substring(14, 16);
+    quakeHour[i] = timeStamp.substring(11, 13);
+    quakeSecond[i] = timeStamp.substring(17, 19);
+    console.log(quakeSecond[i]);
+    // if (quakeMinute[i] < 10) {
+    //   quakeMinute[i] = ("0" + quakeMinute[i]);
+    // }
+    // if (quakeSecond[i] < 10) {
+    //   quakeSecond[i] = ("0" + quakeMinute[i]);
+    // }
     date[i] = quakeMonth[i] + "/" + quakeDay[i];
     allTime[i] = (quakeHour[i] + ":" + quakeMinute[i] + ":" + quakeSecond[i]);
     // mappedMag = map(mags[i], 0, 10, height * 0.82, height * 0.85);
@@ -140,7 +141,6 @@ function parseSource(data) {
       fillOpacity: 0.4,
       fillColor: (234, 34, 0),
     });
-    console.log(depth[i]);
     var place = row[13].substr(1);
     // make new labeled markers at lat, lon, 
     quakes[i].on('mouseover', function(e) {
