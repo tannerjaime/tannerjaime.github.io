@@ -1,0 +1,110 @@
+// BOTTOM DATA BAR
+
+// media queries
+
+@media screen and (min-width: $tablet)
+  .data-bar .data .data-section.location .label
+    padding-right: 20%
+
+
+.data-bar
+  position: absolute
+  height: 23%
+  max-height: 200px
+  width: 100%
+  left: 0
+  top: 75%
+
+  .header
+    background-image: url('../assets/images/data-bar-header-bg.jpg')
+    background-size: cover
+    background-position: left bottom
+    height: 20px
+    padding-left: 50px
+
+    h6
+      font-family: 'DINPro Regular'
+      color: #FDFDFD
+      font-size: rem(10)
+      line-height: 20px
+      vertical-align: middle
+
+  .data
+    background-image: url('../assets/images/data-bar-bg.jpg')
+    background-size: cover
+    height: 100%
+    display: flex
+    color: #FFF
+    text-align: left
+
+    .data-section
+      border-right: 1px solid #9CB8B5
+      width: 20%
+      padding: 20px 0 0 40px
+      h5, h6
+        position: relative
+      .icon
+        position: absolute
+        top: 20px
+        color: #FFF
+        opacity: .25
+        font-size: rem(133)
+      &.temperature
+        width: 29%
+        .icon
+          right: 75%
+          font-size: rem(167)
+        .temp-container
+          display: flex
+          justify-content: flex-start
+          .fahrenheit
+            margin-right: 20px
+      &.windspeed
+        width: 18%
+        .icon
+          right: 55%
+          bottom: -20px
+          top: auto
+          font-size: rem(147)
+      &.pressure
+        width: 19%
+        .icon
+          right: 35%
+      &.rainfall
+        width: 20%
+        .icon
+          right: 15%
+        h5
+          display: inline-block
+          margin-top: -5px
+      &.location
+        width: 14%
+        .icon
+          right: 0
+          bottom: -20px
+          top: auto
+          font-size: rem(160)
+        span
+          display: block
+          text-align: right
+      &:last-child
+        border-right: 0
+      h5
+        font-family: 'Input Sans Light'
+        font-weight: normal
+        text-transform: none
+        .value
+          font-family: 'Blanch Condensed'
+          font-weight: normal
+          font-size: rem(90)
+          .decimal
+            font-size: rem(50)
+            line-height: 65px
+            position: absolute
+      .label
+        font-family: 'DINPro Light'
+        line-height: 14px
+        text-align: left
+      &.location h6
+        padding: 20% 30% 0 0
+        line-height: 18px

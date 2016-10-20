@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>towerOverTime</title>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="libraries/p5.js" type="text/javascript"></script>
+  <script src="libraries/p5.dom.js" type="text/javascript"></script>
+  <script src="libraries/p5.sound.js" type="text/javascript"></script>
+  <script src="libraries/handlebars.min-latest.js" type="text/javascript"></script>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="build/style.css">
+</head>
+
+<body>
+  <!-- DATA INFO -->
+    <div class="data-info">
+
+        <h4 id="data-category"></h4>
+        <h6 id="data-description"></h6>
+
+    </div>
+
+  <!-- DATA SNAPSHOT -->
+    <div class="data-snapshot">
+
+      <script id="handlebars-snapshot" type="text/x-handlebars-template">
+        <div class="current-container">
+            <h5 class="label">Current</h5>
+            <h1 id="current-value" class="value">{{current}}</h1>
+            <h5 id="value-unit">{{unit}}</h5>
+        </div>
+
+        <div class="low-high-container">
+
+            <div class="high">
+                <h5 class="label">High</h5>
+                <h2 id="high-value" class="value">{{high}}</h2>
+            </div>
+
+            <div class="low">
+                <h5 class="label">Low</h5>
+                <h2 id="low-value" class="value">{{low}}</h2>
+            </div>
+
+        </div>
+      </script>
+
+    </div>
+
+<!-- BOTTOM DATA BAR -->
+  <div class="data-bar">
+
+      <div class="header">
+          <h6>Live Data Feed From @SwaleNY</h6>
+      </div>
+
+      <div class="data">
+        <script id="handlebars-data-bar" type="text/x-handlebars-template">
+
+          <div class="data-section temperature">
+              <span class="icon icon-thermometer"></span>
+              <div class="temp-container">
+                  <div class="fahrenheit">
+                      <h5><span class="value">{{temperature_f}}</span>°F</h5>
+                  </div>
+                  <div class="celsius">
+                      <h5><span class="value">{{{temperature_c}}}</span>°C</h5>
+                  </div>
+              </div>
+              <h6 class="label">Temperature</h6>
+          </div>
+
+          <div class="data-section windspeed">
+              <span class="icon icon-windspeed"></span>
+              <h5><span class="value">{{windspeed}}</span>MPH</h5>
+              <h6 class="label">Windspeed</h6>
+          </div>
+
+          <div class="data-section pressure">
+              <span class="icon icon-pressure"></span>
+              <h5><span class="value">{{pressure}}</span>kPa</h5>
+              <h6 class="label">Pressure</h6>
+          </div>
+
+          <div class="data-section rainfall">
+              <span class="icon icon-rain"></span>
+              <h5><span class="value">{{rainfall}}"</span></h5>
+              <h6 class="label">Rainfall</h6>
+          </div>
+
+          <div class="data-section location">
+              <span class="icon icon-location"></span>
+              <h6 class="label">
+                  <span class="area">Hudson River</span>
+                  <span class="borough">// Manhattan</span>
+                  <span class="city">New York City</span>
+                  <span class="time">7:13pm</span>
+              </h6>
+          </div>
+
+        </script>
+      </div>
+
+  </div>
+
+  <script src="build/script.js" type="text/javascript"></script>
+
+</body>
+
+</html>
