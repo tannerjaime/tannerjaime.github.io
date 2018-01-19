@@ -8,7 +8,7 @@
 	<style>
 		body {
 			font-family: Monospace;
-			background-color: #010C13;
+			background-color: #0A0A0A;
 			margin: 0px;
 			overflow: hidden;
 		}
@@ -24,26 +24,9 @@
 	<script src="stats.min.js"></script>
 	<script src="Cnidaria.json"></script>
 
-
-	<!--<h4 class="title" onClick="test()"> Select Here To Search Species </h4>-->
-	<!--<ul class="title">-->
-	<!--	<li>TO SEARCH SPECIES-->
-	<!--		<ul id="list">-->
-	<!--			<li class="active">Animalia</li>-->
-	<!--			<li class="active">Cnidaria</li>-->
-	<!--		</ul>-->
-	<!--	</li>-->
-	<!--</ul>-->
-	<!--info-->
-	<!--<button type="button" id="searchButton" onclick="orderMenu()">search</button>-->
-	<!-- The overlay -->
 	<div id="mycanvas"></div>
-	
-	
-	<div id="title">
-		<!--<a>-->
-			 <!--Mentions of <b>Stauromedusae</b><br> in the Publication <i>Nature</i> -->
-			 <!--</a>-->
+
+	<div id="title" onclick="openNav()">
 		</div>
 
 	<div id="myNav" class="overlay">
@@ -93,15 +76,18 @@
 
 	<!-- Use any element to open/show the overlay navigation menu -->
 	<div id="rightBar">
+		<!-- <div id="openAbout">
+			<p id="about"> <b>ABOUT</b></p>
+			<img src="info.png"  style="width:9px;height:18px;">
+		</div> -->
 		<div id="openNav" onclick="openNav()">
-			<p id="exploreOrders">EXPLORE OTHER
-				<br> <b> ORGANISMS </b></span>
+			<p id="exploreOrders"> <b>SELECT OTHER ORGANISMS</b></p>
 		</div>
 	</div>
 
 	<div id="below">
 		<div id="otherInfo">
-			<div id="heirarchy" onclick="parent.location='slide3.html'">Taxonomy</div>
+			<div id="heirarchy">Taxonomy</div>
 			<div id="info">
 				<!--<p id="kingdom"> </p>-->
 				<!--<p id="phylum"> </p>-->
@@ -123,11 +109,7 @@
 	<div id="pageRunner"></div>
 	<!--<span class="phylum"> Phylum </span> <span>Cnidaria</span>-->
 	<script>
-		// The Nature of Code
-		// Daniel Shiffman
-		// http://natureofcode.com
-		// Simple Particle System
-
+		// particle system made with help from the great examples in Daniel Shiffman's "Nature of Code"
 		var ps;
 		var maxNatureCount = 0;
 		var allCounts = [];
@@ -189,7 +171,7 @@
 		var Particle = function(position, k, p, c, o, f, g, s, sn, count, link, title) {
 			this.acceleration = new THREE.Vector3(Math.random() * 10 - 5, Math.random() * 10 - 5, 0);
 			this.velocity = new THREE.Vector3(Math.random() - .5, Math.random() - .5, 0);
-			this.lifespan = 1500.0; //how many frames they will move for 
+			this.lifespan = 15000.0; //how many frames they will move for
 
 			this.r = 12;
 			this.maxspeed = 3; // Maximum speed
@@ -223,7 +205,7 @@
 			}
 
 
-			geometry = new THREE.CircleBufferGeometry(this.r); // parameter represents scale
+			geometry = new THREE.CircleBufferGeometry(this.r, 20); // parameter represents scale
 			// create object with basic material and color based on random species shuffled earlier
 			// color is made up on arbitrary number based on species code
 			this.object = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
@@ -265,8 +247,8 @@
 				var separateForce = this.separate(particles);
 
 				// if (this.object.natureCount == 0) {
-				// 	//sets where particles will move 
-				var seekForce = this.seek(new THREE.Vector3(scale((window.innerWidth / 2 + window.innerWidth / 8) * -1, window.innerWidth / 2 + window.innerWidth / 8, this.object.natureCount, maxNatureCount), (window.innerHeight / 2) - (window.innerHeight / 2.5) , 0));
+				// 	//sets where particles will move
+				var seekForce = this.seek(new THREE.Vector3(scale((window.innerWidth / 2 + window.innerWidth / 8) * -1, window.innerWidth / 2 + window.innerWidth / 8, this.object.natureCount, maxNatureCount), (window.innerHeight / 2) - (window.innerHeight / 3) , 0));
 
 
 
@@ -319,7 +301,6 @@
 				return sum;
 			};
 
-			// seek the mouse
 			// this could be any attractor, or a series for them based on species
 			this.seek = function(target) {
 				var desired = target.sub(this.object.position); // A vector pointing from the location to the target
@@ -339,13 +320,13 @@
 				this.velocity.clampLength(0, this.maxspeed);
 				this.object.position.add(this.velocity);
 				this.acceleration.multiplyScalar(0);
-				// this is forcing each 
+				// this is forcing each
 				this.object.position.z = 0;
 				// Differentiate species through z offset
 				// this.object.position.setZ(this.species * 100);
 				// lifespan is for making particles expire
 				//IF COMMENTED OUT, THEY WILL NEVER EXPIRE
-				// this.lifespan -= 1;
+				this.lifespan -= 1;
 			};
 
 			// Method to display
@@ -391,7 +372,7 @@
 			container = document.getElementById("mycanvas");
 
 			camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
-			camera.position.z = 1000;
+			camera.position.z = 1500;
 
 			controls = new THREE.TrackballControls(camera);
 			controls.rotateSpeed = 1.0;
@@ -422,6 +403,7 @@
 			scene.add(light);
 
 			// var geometry = new THREE.BoxGeometry( 40, 40, 40 );
+			// drawLine ((window.innerWidth / 2 + window.innerWidth / 8) * -1, window.innerHeight / 2.5 * -1, 0, window.innerWidth / 2 + window.innerWidth / 8,  window.innerHeight / 2.5 * -1, 0, 1,3)
 
 			ps = new ParticleSystem(new THREE.Vector3(0, 0, 0));
 
@@ -459,7 +441,7 @@
 
 			window.addEventListener('resize', onWindowResize, false);
 
-			// WHERE I ATTEMPTED TO MAKE A LINE
+			// scale code:
 			// var Linematerial = new THREE.LineBasicMaterial({
 			// 	color: 0xffffff
 			// });
@@ -553,8 +535,8 @@
 						// container for assembling publications, unsorted list
 						var publicationString = "<ul>\n";
 						for (var a = 0; a < INTERSECTED.natureArticles.length; a++) {
-							document.getElementById("nature").innerHTML = "<b>" +INTERSECTED.sciName + " </b> is Mentioned in <b>" + INTERSECTED.natureCount + "</b> articles";
-							// assemble html formatted string, list items li 
+							document.getElementById("nature").innerHTML = "Number of citations: " + INTERSECTED.natureCount;
+							// assemble html formatted string, list items li
 							publicationString += "<li href='" + INTERSECTED.natureArticles[a] + "'>" + INTERSECTED.natureTitles[a] + "</li>\n";
 							// document.getElementById("nature").insertAdjacentHTML('afterend', '<div id=' + "current" + ' href=' + INTERSECTED.natureArticles[a] + '>' + INTERSECTED.natureTitles[a] + '</div>');
 						}
@@ -562,7 +544,7 @@
 						publicationString += "</ul>\n";
 						// document.getElementById("nature").appendChild(publicationString);
 						// write string to html element, currently line 48
-						console.log(publicationString);
+						// console.log(publicationString);
 						document.getElementById("currentPublications").innerHTML = publicationString;
 					}
 					else {
@@ -688,24 +670,28 @@
 				// console.log("level no: " + currentLevel + " | thisLevel: " + thisLevel + " | thisLevel Obj: " + obj[thisLevel]);
 				// sel = obj[thisLevel];
 				sel = order;
-				document.getElementById("title").innerHTML = "<a>Mentions of <b>" + sel + "</b><br> in the Publication <i>Nature</i></a>";
+				document.getElementById("title").innerHTML = "<a>Mentions of <b>" + sel  + " </b><br> in the Publication <i>Nature</i></a>";
 			}
 			else {
 				sel = 'Stauromedusae';
-				document.getElementById("title").innerHTML = "<a>Mentions of <b>" + sel + "</b><br> in the Publication <i>Nature</i></a>";
+				document.getElementById("title").innerHTML = "<a>Mentions of <b>" + sel + "  </b><br> in the Publication <i>Nature</i></a>";
 			}
 
-			// console.log(selected.length);
 			// make selection
 			for (var i = 0; i < cnidaria.length; i++) {
 				if (cnidaria[i].classification.order == sel) {
 					// find the groupings of pub counts
 					if (cnidaria[i].natureCount > 0) {
-						if (groupSum[cnidaria[i].natureCount] != undefined) {
-							// groupSum[cnidaria[i].natureCount] = 0;
-						
-							groupSum[cnidaria[i].natureCount] += cnidaria[i].natureCount;
+						if (groupSum[cnidaria[i].natureCount] == undefined) {
+							groupSum[0] = 0;
+							group[0] = 0
+
 							group[cnidaria[i].natureCount] = cnidaria[i].natureCount;
+							// groupSum[cnidaria[i].natureCount] = 0;
+							groupSum[cnidaria[i].natureCount] = cnidaria[i].natureCount;
+					console.log("test");
+						} else if (groupSum[cnidaria[i].natureCount] != undefined) {
+							groupSum[cnidaria[i].natureCount] += cnidaria[i].natureCount;
 						}
 					}
 
@@ -727,21 +713,27 @@
 
 
 
-			// container for assembling publications, unsorted list SCALE BAR!!!!!
-			
-			// var bottomBar = "<div>\n";
-			// for (var a = 0; a < group.length; a++) {
-			// 	// assemble html formatted string, list items 
+			// container for assembling publications, unsorted list
+			var bottomBar = "<div>\n";
+			for (var a = 0; a < group.length; a++) {
+				// assemble html formatted string, list items
 
-			// 	// if (group[a] != undefined) {
-			// 	bottomBar += "<p>" + group[a] + "</p>";
-			// 	// }
-			// }
+				var left = scale((window.innerWidth / 2 + window.innerWidth / 8) * -1, window.innerWidth / 2 + window.innerWidth / 8, a, maxNatureCount);
+				// if (group[a] != undefined) {
+				console.log(window.innerWidth);
+				// if (left > 0){
+				// 	left = left * -1;
+				// } else if (left < 0) {
+				// 	left = left + window.innerWidth;
+				// }
+				bottomBar += "<span style='" + "position:absolute;left:" + left + "px;" + "'>" + group[a] + "</span>";
+				// }
 
-			// bottomBar += "</div>\n";
+			}
 
-			// console.log(bottomBar);
-			// document.getElementById("pageRunner").innerHTML = bottomBar;
+			bottomBar += "</div>\n";
+
+			document.getElementById("pageRunner").innerHTML = bottomBar;
 
 
 
@@ -755,7 +747,7 @@
 				for (var i = 0; i < chosen.length; i++) {
 					var link, title;
 
-					console.log(chosen.length);
+					// console.log(chosen.length);
 					if (chosen[i].natureCount > 0) {
 						link = chosen[i].natureArticles;
 						title = chosen[i].natureTitles;
@@ -764,7 +756,7 @@
 						link = "NaN";
 						title = "NaN";
 					}
-					// console.log(title);
+
 					ps.addParticle(chosen[i].classification.kingdom, chosen[i].classification.phylum, chosen[i].classification.class, chosen[i].classification.order, chosen[i].classification.family, chosen[i].classification.genus, chosen[i].species, chosen[i].sciName, chosen[i].natureCount, link, title);
 
 				}
@@ -776,11 +768,32 @@
 		}
 
 
+		function drawLine (beginX, beginY, beginZ, endX, endY, endZ, alpha, weight) {
+				var material = new THREE.LineBasicMaterial({
+				color: 0xefc954,
+				linewidth: weight,
+				opacity: alpha
+				});
+				var geometry = new THREE.Geometry();
+				geometry.vertices.push(
+				new THREE.Vector3( beginX, beginY, beginZ ),
+				new THREE.Vector3( endX, endY, endZ )
+				// new THREE.Vector3( all[4].position.x,  all[4].position.y,  all[4].position.z ),
+				// new THREE.Vector3( all[8].position.x,  all[8].position.y,  all[8].position.z )
+				// new THREE.Vector3( 10, 0, 0 )
+				);
+				var line = new THREE.Line( geometry, material );
+				// console.log(line);
+				// linesArray.push(line);
+				// console.log(linesArray.length);
+				scene.add( line );
+			}
+
 		function render() {
 
 			controls.update();
 
-			renderer.setClearColor(new THREE.Color(0x010C13), 1);
+			renderer.setClearColor(new THREE.Color(0x000000), 1);
 			renderer.render(scene, camera);
 
 		}
@@ -798,7 +811,7 @@
 		$('body').on('click', 'a', function() {
 			// get the content of what's been clicked on
 			var choice = $(this).text();
-			console.log(choice);
+			// console.log(choice);
 			// use that content to make the selection
 			selection(choice);
 			closeNav();
